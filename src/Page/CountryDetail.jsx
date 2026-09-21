@@ -9,8 +9,11 @@ function CountryDetail() {
   const selectedCountry = location.state;
 
   const { favorites, addFavorite } = useContext(FavoriteContext);
+  console.log("selectedCountry:", selectedCountry);
+console.log("favorites:", favorites);
   const isFavorite = favorites.some((item) => {
     return (
+       item.coordinates &&
       item.coordinates.lat === selectedCountry.coordinates.lat &&
       item.coordinates.lng === selectedCountry.coordinates.lng
     );

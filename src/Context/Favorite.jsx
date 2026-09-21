@@ -11,15 +11,19 @@ function Favorite({ children }) {
   function addFavorite(country) {
     const isFavorite = favorites.some((item) => {
       return (
+        item.coordinates &&
+        country.coordinates &&(
         item.coordinates.lat === country.coordinates.lat &&
-        item.coordinates.lng === country.coordinates.lng
+        item.coordinates.lng === country.coordinates.lng)
       );
     });
     if (isFavorite) {
       const newFavorite = favorites.filter((item) => {
         return (
-          item.coordinates.lat !== country.coordinates.lat ||
-          item.coordinates.lng !== country.coordinates.lng
+          item.coordinates &&
+            country.coordinates &&(
+            item.coordinates.lat !== country.coordinates.lat ||
+          item.coordinates.lng !== country.coordinates.lng)
         );
       });
       setFavorites(newFavorite);
@@ -27,7 +31,7 @@ function Favorite({ children }) {
     } else {
       const newFavorite = [...favorites, country];
       setFavorites(newFavorite);
-      localStorage.setItem("favorites",JSON.stringify(newFavorite));
+      localStorage.setItem("favorites", JSON.stringify(newFavorite));
     }
   }
 
@@ -40,4 +44,4 @@ function Favorite({ children }) {
   );
 }
 export { FavoriteContext };
-export default Favorite
+export default Favorite;
