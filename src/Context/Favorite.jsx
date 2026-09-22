@@ -4,40 +4,40 @@ import { createContext, useState } from "react";
 const FavoriteContext = createContext();
 
 function Favorite({ children }) {
-  const [favorites, setFavorites] = useState(() => {
-    return JSON.parse(localStorage.getItem("favorites")) || [];
+  const [favorite, setFavorite] = useState(() => {
+    return JSON.parse(localStorage.getItem("favorite")) || [];
   });
 
   function addFavorite(country) {
-    const isFavorite = favorites.some((item) => {
+    const isFavorite = favorite.some((item) => {
       return (
         item.coordinates &&
-        country.coordinates &&(
+        country.coordinates &&
         item.coordinates.lat === country.coordinates.lat &&
-        item.coordinates.lng === country.coordinates.lng)
+        item.coordinates.lng === country.coordinates.lng
       );
     });
     if (isFavorite) {
-      const newFavorite = favorites.filter((item) => {
+      const newFavorite = favorite.filter((item) => {
         return (
           item.coordinates &&
-            country.coordinates &&(
-            item.coordinates.lat !== country.coordinates.lat ||
-          item.coordinates.lng !== country.coordinates.lng)
+          country.coordinates &&
+          (item.coordinates.lat !== country.coordinates.lat ||
+            item.coordinates.lng !== country.coordinates.lng)
         );
       });
-      setFavorites(newFavorite);
-      localStorage.setItem("favorites", JSON.stringify(newFavorite));
+      setFavorite(newFavorite);
+      localStorage.setItem("favorite", JSON.stringify(newFavorite));
     } else {
-      const newFavorite = [...favorites, country];
-      setFavorites(newFavorite);
-      localStorage.setItem("favorites", JSON.stringify(newFavorite));
+      const newFavorite = [...favorite, country];
+      setFavorite(newFavorite);
+      localStorage.setItem("favorite", JSON.stringify(newFavorite));
     }
   }
 
   return (
     <div>
-      <FavoriteContext.Provider value={{ favorites, addFavorite }}>
+      <FavoriteContext.Provider value={{ favorite, addFavorite }}>
         {children}
       </FavoriteContext.Provider>
     </div>

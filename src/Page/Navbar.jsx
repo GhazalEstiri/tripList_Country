@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { MapPinned } from "lucide-react";
+import { MapPinned,CircleUserRound } from "lucide-react";
 function Navbar() {
   return (
     <div className="navbar bg-base-100 h-1 w-[90%] flex mx-auto border-b-2 border-[#1d4362]">
@@ -31,9 +31,9 @@ function Navbar() {
       <div className="navbar-end">
         <Link
           to="/Login"
-          className="btn btn-sm bg-[#1d4362] text-white hover:bg-[#6084a1]"
+          className="btn btn-sm bg-[#1d4362] text-white hover:bg-[#6084a1] rounded-full  w-10 h-10 min-h-10 p-0 flex justify-center place-items-center"
         >
-          Login
+          <CircleUserRound />
         </Link>
       </div>
     </div>

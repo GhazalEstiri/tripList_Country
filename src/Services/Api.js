@@ -4,7 +4,7 @@ const WEATHER_URL = "https://api.open-meteo.com/v1/forecast";
 
 export async function getCountry() {
   const response = await fetch(
-    `${BASE_URL}/countries/v5?response_fields=names.common,coordinates&limit=100`,
+    `${BASE_URL}/countries/v5?response_fields=names.common,coordinates,flag&limit=100`,
     {
       headers: {
         Authorization: `Bearer ${API_KEY}`,

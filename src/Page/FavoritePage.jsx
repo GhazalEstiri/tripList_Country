@@ -2,12 +2,12 @@ import { useContext } from "react";
 import { FavoriteContext } from "../Context/Favorite";
 import { Link } from "react-router";
 function FavePage(country) {
-  const { favorites, addFavorite } = useContext(FavoriteContext);
-console.log("first item:", favorites[0]);
-console.log("country name:", favorites[0].name);  return (
+  const { favorite, addFavorite } = useContext(FavoriteContext);
+console.log("first item:", favorite[0]);
+console.log("country name:", favorite[0].name);  return (
     <div>
-      {favorites.length > 0 ? (
-        favorites.map((item) => {
+      {favorite.length > 0 ? (
+        favorite.map((item) => {
           return (
             <div key={item.names.common}>
               <Link to="/CountryDetail" key={item.names.common} state={item}>
