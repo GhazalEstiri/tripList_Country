@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getCountry } from "../Services/Api";
 import { useNavigate } from "react-router";
-
+import Navbar from "./Navbar";
 function Countries() {
   const [country, setCountry] = useState([]);
   const [searchInput, setSearchInput] = useState("");
@@ -28,6 +28,7 @@ function Countries() {
 
   return (
     <div>
+      <Navbar/>
       <input
         type="text"
         placeholder="Search country..."

@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import { MapPinned } from "lucide-react";
 function Navbar() {
   return (
-    <div className="navbar bg-base-100 h-1 w-[90%] flex mx-auto">
+    <div className="navbar bg-base-100 h-1 w-[90%] flex mx-auto border-b-2 border-[#1d4362]">
       <div className="navbar-start">
         <Link
           to="/"
