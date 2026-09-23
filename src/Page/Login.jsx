@@ -126,7 +126,7 @@ function Login() {
 
                 <button
                   onClick={logout}
-                  className="w-full py-3 rounded-full bg-red-500 text-white font-medium hover:bg-red-600 transition"
+                  className="w-full py-3 rounded-full bg-[#093775] text-white font-medium hover:bg-[#001f49] transition"
                 >
                   Log out
                 </button>
@@ -221,16 +221,18 @@ function Login() {
 
                   <div className="flex items-center justify-between text-xs">
                     <label className="flex items-center gap-2 text-gray-500">
-                      <input type="checkbox" className="accent-[#173c5c]" />
+                      {/* <input type="checkbox" className="accent-[#173c5c]" /> */}
+                      <input type="checkbox" className="checkbox validator"  title="Required" />
+
                       Remember me
                     </label>
 
-                    <button
+                    {/* <button
                       type="button"
                       className="text-[#2c6288] hover:underline"
                     >
                       Forgot password?
-                    </button>
+                    </button> */}
                   </div>
 
                   {error && (
@@ -246,27 +248,27 @@ function Login() {
                     Sign In
                   </button>
 
-                  <div className="flex items-center gap-3">
+                  {/* <div className="flex items-center gap-3">
                     <div className="h-px bg-[#e5ebef] flex-1" />
                     <span className="text-xs text-gray-400">or</span>
                     <div className="h-px bg-[#e5ebef] flex-1" />
-                  </div>
+                  </div> */}
 
-                  <button
+                  {/* <button
                     type="button"
                     className="w-full h-12 rounded-full border border-[#dce5ec] bg-white text-sm font-medium text-[#42566a] hover:bg-gray-50 transition"
                   >
                     <span className="mr-2 font-bold text-[#4285F4]">G</span>
                     Continue with Google
-                  </button>
+                  </button> */}
                 </form>
 
-                <p className="text-center text-xs text-gray-400 mt-8">
+                {/* <p className="text-center text-xs text-gray-400 mt-8">
                   Don't have an account?
                   <button className="text-[#2c6288] font-medium hover:underline">
                     Sign up
                   </button>
-                </p>
+                </p> */}
               </>
             )}
           </div>

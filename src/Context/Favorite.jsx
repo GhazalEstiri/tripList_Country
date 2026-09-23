@@ -1,14 +1,22 @@
-import { createContext, useState } from "react";
+import { createContext, useState,useContext } from "react";
 // import { useParams } from "react-router";
 // import { getWeather } from "../Services/Api";
+import { loginContext } from "../Context/AuthContext";
+
 const FavoriteContext = createContext();
 
 function Favorite({ children }) {
+  const { user } = useContext(loginContext);
   const [favorite, setFavorite] = useState(() => {
     return JSON.parse(localStorage.getItem("favorite")) || [];
   });
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   function addFavorite(country) {
+    if (!user) {
+      setShowLoginModal(true);
+      return;
+    }
     const isFavorite = favorite.some((item) => {
       return (
         item.coordinates &&
@@ -37,7 +45,9 @@ function Favorite({ children }) {
 
   return (
     <div>
-      <FavoriteContext.Provider value={{ favorite, addFavorite }}>
+      <FavoriteContext.Provider
+        value={{ favorite, addFavorite, showLoginModal,setShowLoginModal }}
+      >
         {children}
       </FavoriteContext.Provider>
     </div>
