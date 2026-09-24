@@ -16,6 +16,7 @@ function Login() {
   const [pasword, setPasword] = useState("");
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [remmember , setRemmember]=useState(false)
 
   const regexPasword = /^(?=.*[A-Za-z])(?=.*[0-9]).{8,}$/;
   const regexName = /^[A-Za-z]+$/;
@@ -59,7 +60,7 @@ function Login() {
       return;
     }
 
-    login(name, email);
+    login(name, email,remmember);
     setError("");
     navigate("/");
   };
@@ -222,7 +223,7 @@ function Login() {
                   <div className="flex items-center justify-between text-xs">
                     <label className="flex items-center gap-2 text-gray-500">
                       {/* <input type="checkbox" className="accent-[#173c5c]" /> */}
-                      <input type="checkbox" className="checkbox validator"  title="Required" />
+                      <input type="checkbox" className="checkbox validator"  title="Required" onChange={()=>setRemmember(!remmember)} />
 
                       Remember me
                     </label>

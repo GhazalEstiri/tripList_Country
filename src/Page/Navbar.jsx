@@ -23,7 +23,7 @@ function Navbar() {
           </li>
 
           <li>
-            <a>About</a>
+            <a>Profile</a>
           </li>
         </ul>
       </div>
