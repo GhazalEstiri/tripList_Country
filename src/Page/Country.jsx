@@ -6,12 +6,21 @@ import { ChevronRight, Search } from "lucide-react";
 function Countries() {
   const [country, setCountry] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const pages = 10;
   const navigate = useNavigate();
 
+  // setCurrentPage(c=>c+1)
+
   async function getApi() {
-    const countryData = await getCountry();
+    const limit = 25;
+    const offset = (currentPage - 1) * limit;
+    const countryData = await getCountry(limit, offset);
     setCountry(countryData);
   }
+
+  const pageNumber = Array.from({ length: pages }, (v, i) => i + 1);
+  console.log(pageNumber);
 
   function handleClick(item) {
     navigate("/CountryDetail", {
@@ -21,10 +30,10 @@ function Countries() {
 
   useEffect(() => {
     getApi();
-  }, []);
+  }, [currentPage]);
 
   const searchCountry = country.filter((item) =>
-    item.names.common.toLowerCase().includes(searchInput.toLowerCase()),
+    item.name.toLowerCase().includes(searchInput.toLowerCase()),
   );
 
   return (
@@ -33,7 +42,6 @@ function Countries() {
       <section className="px-6 pt-10 pb-8">
         <div className="mx-auto max-w-345">
           <div className="rounded-2xl bg-[#EAF5FA] px-8 py-10 md:px-12 relative overflow-hidden">
-
             <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-[#B9DDF2]/60" />
 
             <div className="relative z-10 max-w-2xl">
@@ -62,7 +70,7 @@ function Countries() {
               <div className="card bg-base-100 rounded-box grid h-20 grow place-items-center justify-center">
                 <h1 className="font-bold text-[#1d4362] text-2xl">countries</h1>
                 <p className="text-[#1d4362ad] tracking-[0.25em]">
-                  100 Destination available
+                  250 Destination available
                 </p>
               </div>
             </div>
@@ -90,16 +98,16 @@ function Countries() {
         {searchCountry.length > 0 ? (
           searchCountry.map((item) => (
             <button
-              key={item.names.common}
+              key={item.name}
               onClick={() => handleClick(item)}
               className="bg-[#F7F9F8] shadow-xl flex p-10 font-bold text-[#1d4362] text-sm cursor-pointer rounded-2xl"
             >
               <div className="flex w-200 flex-col gap-8 justify-between">
-                <div key={item.flag.url_png}>
-                  <img src={item.flag.url_png} alt={item.names.common} />
+                <div key={item.flags.png}>
+                  <img src={item.flags.png} alt={item.name} />
                 </div>
                 <div className="flex flex-row justify-between items-baseline w-full">
-                  <p>{item.names.common}</p>
+                  <p>{item.name}</p>
                   <div className=" flex justify-center items-center bg-[#E8F4FD] rounded-2xl p-2 text-sm text-[#1d4362] w-40">
                     More details <ChevronRight />
                   </div>
@@ -110,6 +118,12 @@ function Countries() {
         ) : (
           <p>Nothing found</p>
         )}
+      </div>
+
+      <div  className="join flex justify-center items-center mb-5 -mt-10">
+        {pageNumber.map((btn) => {
+          return <button key={btn} onClick={()=>setCurrentPage(btn)}  className={`join-item btn ${btn===currentPage&& "btn-active"}`}>{btn}</button>;
+        })}
       </div>
     </div>
   );
