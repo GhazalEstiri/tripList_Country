@@ -2,13 +2,22 @@ const BASE_URL = "https://countries.dev";
 const API_KEY = import.meta.env.VITE_API_KEY_COUNTRY;
 const WEATHER_URL = "https://api.open-meteo.com/v1/forecast";
 
-export async function getCountry(limit , offset) {
+export async function getCountry(limit, offset) {
   const response = await fetch(
-  `${BASE_URL}/countries?fields=name%2Ccapital%2Cflag&full=true&sort=population&limit=${limit}&offset=${offset}`
+    `${BASE_URL}/countries?fields=name%2Ccapital%2Cflag&full=true&sort=population&limit=${limit}&offset=${offset}`,
   );
 
   console.log(response.status);
 
+  const data = await response.json();
+  console.log("data:", data);
+
+  return data;
+}
+
+export async function searchCountry(nameCountry) {
+  const response = await fetch(`${BASE_URL}/name/${nameCountry}`);
+  console.log(response.status);
   const data = await response.json();
   console.log("data:", data);
 

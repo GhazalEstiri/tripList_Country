@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getCountry } from "../Services/Api";
+import { getCountry, searchCountry } from "../Services/Api";
 import { useNavigate } from "react-router";
 import Navbar from "./Navbar";
 import { ChevronRight, Search } from "lucide-react";
@@ -10,15 +10,18 @@ function Countries() {
   const pages = 10;
   const navigate = useNavigate();
 
-  // setCurrentPage(c=>c+1)
-
   async function getApi() {
     const limit = 25;
     const offset = (currentPage - 1) * limit;
     const countryData = await getCountry(limit, offset);
     setCountry(countryData);
   }
-
+  async function handleSearch() {
+    const nameCountry = searchInput;
+    const searchData = await searchCountry(nameCountry);
+    setCountry(searchData);
+    console.log(country)
+  }
   const pageNumber = Array.from({ length: pages }, (v, i) => i + 1);
   console.log(pageNumber);
 
@@ -29,13 +32,16 @@ function Countries() {
   }
 
   useEffect(() => {
-    getApi();
-  }, [currentPage]);
+    if (searchInput.length == 0) {
+      getApi();
+    } else {
+      handleSearch();
+    }
+  }, [currentPage,searchInput]);
 
-  const searchCountry = country.filter((item) =>
-    item.name.toLowerCase().includes(searchInput.toLowerCase()),
-  );
-
+  // const searchCountry = country.filter((item) =>
+  //   item.name.toLowerCase().includes(searchInput.toLowerCase()),
+  // )
   return (
     <div className="flex  flex-col">
       <Navbar />
@@ -95,8 +101,8 @@ function Countries() {
       </div>
 
       <div className="grid grid-cols-4 gap-7 p-18 ">
-        {searchCountry.length > 0 ? (
-          searchCountry.map((item) => (
+        {country.length > 0 ? (
+          country.map((item) => (
             <button
               key={item.name}
               onClick={() => handleClick(item)}
@@ -120,9 +126,17 @@ function Countries() {
         )}
       </div>
 
-      <div  className="join flex justify-center items-center mb-5 -mt-10">
+      <div className="join flex justify-center items-center mb-5 -mt-10">
         {pageNumber.map((btn) => {
-          return <button key={btn} onClick={()=>setCurrentPage(btn)}  className={`join-item btn ${btn===currentPage&& "btn-active"}`}>{btn}</button>;
+          return (
+            <button
+              key={btn}
+              onClick={() => setCurrentPage(btn)}
+              className={`join-item btn ${btn === currentPage && "btn-active"}`}
+            >
+              {btn}
+            </button>
+          );
         })}
       </div>
     </div>
