@@ -25,10 +25,7 @@ export async function searchCountry(nameCountry) {
 }
 
 export async function getWeather(latitude, longitude) {
-  const response = await fetch(`
-${WEATHER_URL}?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code,wind_speed_10m
-    
-    `);
+  const response = await fetch(`${WEATHER_URL}?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,wind_speed_10m,weather_code&current_units=temperature_2m,wind_speed_10m`);
   console.log(response.status);
 
   const data = await response.json();
