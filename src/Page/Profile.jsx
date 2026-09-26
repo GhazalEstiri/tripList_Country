@@ -18,7 +18,6 @@ function Profile() {
       <div className="w-[92%] sm:w-[90%] mx-auto mt-10 sm:mt-16 lg:mt-20 mb-10 sm:mb-20">
         <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col lg:flex-row min-h-[500px]">
 
-          {/* Left Side */}
           <div className="w-full lg:w-[35%] bg-[#eef6fb] flex flex-col items-center justify-center p-8 sm:p-10">
             
             <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-white flex items-center justify-center shadow-md mb-5">
@@ -77,7 +76,6 @@ function Profile() {
               </div>
             </div>
 
-            {/* Name */}
             <div className="border border-[#dce7ee] rounded-2xl p-4 sm:p-5 flex items-center gap-3 sm:gap-4 mb-4 sm:mb-5 hover:border-[#1d4362] transition">
               
               <div className="w-11 h-11 sm:w-12 sm:h-12 shrink-0 rounded-full bg-[#eef6fb] flex items-center justify-center">
@@ -104,7 +102,6 @@ function Profile() {
 
             </div>
 
-            {/* Email */}
             <div className="border border-[#dce7ee] rounded-2xl p-4 sm:p-5 flex items-center gap-3 sm:gap-4 hover:border-[#1d4362] transition">
 
               <div className="w-11 h-11 sm:w-12 sm:h-12 shrink-0 rounded-full bg-[#eef6fb] flex items-center justify-center">
