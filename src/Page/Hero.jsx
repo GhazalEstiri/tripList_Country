@@ -14,12 +14,12 @@ function Hero() {
             <br />
             Not Things.
           </h1>
-        <p className="max-w-md text-sm  text-base-content/60 w-150">
+        <p className="max-w-150 text-sm  text-base-content/60 ">
           Explore countries, save your favorites, and build your dream travel
           list.
         </p>
         </div>
-        <div className="flex flex-row absolute bottom-30 gap-10 text-[#1d4362]">
+        <div className="flex flex-row absolute bottom-30 gap-2 md:gap-10 text-[#1d4362] max-w-107">
           <p className="flex flex-col border-r-2 pr-4">
             <span className="font-bold">250</span> Countries
           </p>
@@ -35,7 +35,8 @@ function Hero() {
         </div>
       </div>
 
-      <div className="flex h-full w-full items-center justify-center">
+
+      <div className="hidden md:flex h-full w-full items-center justify-center ">
         <svg viewBox="0 0 200 200" className="h-220 w-220 -mt-10">
           <defs>
             <clipPath id="blob">

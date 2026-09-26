@@ -64,7 +64,7 @@ function Login() {
       setError("confirmPassword is empty.");
       return;
     }
-    if (!regexPasword.test(pasword) !== confirmPassword) {
+    if (pasword !==confirmPassword) {
       setError("یکی نیست پسسووردا");
       return;
     }
@@ -242,9 +242,9 @@ function Login() {
 
                       <input
                         type={showPassword ? "text" : "password"}
-                        value={pasword}
+                        value={confirmPassword}
                         placeholder="••••••••"
-                        onChange={(e) => setPasword(e.target.value)}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
                         className="w-full h-12 rounded-xl border border-[#dce5ec] bg-[#fbfcfd] pl-11 pr-12 text-sm outline-none focus:border-[#173c5c] transition"
                       />
 

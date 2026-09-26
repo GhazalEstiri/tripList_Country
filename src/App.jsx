@@ -6,6 +6,7 @@ import CountryDetail from "./Page/CountryDetail";
 import FavePage from "./Page/FavoritePage";
 import Login from "./Page/Login";
 import Countries from "./Page/Country";
+import Profile from "./Page/Profile";
 function App() {
   return (
     <>
@@ -16,6 +17,7 @@ function App() {
           <Route path="/Favorite" element={<FavePage />} />
           <Route path="/Login" element={<Login/>}/>
           <Route path="/Countries" element={<Countries/>}/>
+          <Route path="/Profile" element={<Profile/>}/>
         </Routes>
       </BrowserRouter>
     </>

@@ -13,7 +13,7 @@ function FavePage(country) {
       <h1 className="font-bold text-3xl tracking-[0.25em] text-[#1d4362] flex justify-center items-center mt-10 mx-auto">
         Favorite
       </h1>
-      <div className="grid grid-cols-4 gap-7 p-18 ">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7 p-18 ">
         {favorite.length > 0 ? (
           favorite.map((item) => {
             return (
@@ -25,12 +25,12 @@ function FavePage(country) {
                   <div key={item.flags.png}>
                     <img src={item.flags.png} alt={item.name} />
                   </div>
-                  <div className="flex flex-row justify-between items-baseline w-full">
-                    <Link to="/CountryDetail" key={item.name} state={item}>
-                      {item.name}
+                <div className="flex flex-col justify-center items-baseline w-full gap-6 ">
+                    <Link to="/CountryDetail" key={item.name} state={item} className="line-clamp-1 text-center w-full">
+                      {item.name} 
                     </Link>
 
-                    <div className=" flex justify-center items-center bg-[#E8F4FD] rounded-2xl p-2 text-sm text-[#1d4362] w-40">
+                  <div className=" flex justify-center items-center bg-[#E8F4FD] rounded-2xl p-2 text-sm text-[#1d4362]  mx-auto w-full">
                       More details <ChevronRight />
                     </div>
                   </div>
