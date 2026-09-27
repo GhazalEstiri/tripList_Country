@@ -4,6 +4,12 @@ import { initialState, tripReducer } from "../Reducer/tripReducer";
 import { useEffect, useState, useReducer } from "react";
 function MyTrip() {
   const [country, setCountry] = useState([]);
+  const [selectedCountry,setSelectedcountry]=useState("") 
+  const [selectedCategory,setSelectedCategory]=useState("")
+  const [companion,setCompanion]=useState([])
+  const [budget, setBudget]=useState("")
+
+
 
   async function getApi() {
     const limit = 250;
@@ -87,7 +93,7 @@ function MyTrip() {
             </div>
 
             <div className="modal-action">
-              <form method="dialog" onClick={() => addTrip()}>
+              <form method="dialog" onSubmit={() => addTrip()}>
                 {/* if there is a button in form, it will close the modal */}
                 <button className="btn">Add Trip</button>
               </form>
