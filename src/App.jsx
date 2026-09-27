@@ -7,6 +7,8 @@ import FavePage from "./Page/FavoritePage";
 import Login from "./Page/Login";
 import Countries from "./Page/Country";
 import Profile from "./Page/Profile";
+import MyTrip from "./Page/MyTrip";
+import TripDetail from "./Page/TripDetail";
 function App() {
   return (
     <>
@@ -15,9 +17,11 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="/CountryDetail" element={<CountryDetail />} />
           <Route path="/Favorite" element={<FavePage />} />
-          <Route path="/Login" element={<Login/>}/>
-          <Route path="/Countries" element={<Countries/>}/>
-          <Route path="/Profile" element={<Profile/>}/>
+          <Route path="/Login" element={<Login />} />
+          <Route path="/Countries" element={<Countries />} />
+          <Route path="/Profile" element={<Profile />} />
+          <Route path="/MyTrip" element={<MyTrip />} />
+          <Route path="/TripDetail" element={<TripDetail />} />
         </Routes>
       </BrowserRouter>
     </>

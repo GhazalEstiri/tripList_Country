@@ -7,7 +7,6 @@ function Navbar() {
 
   return (
     <div className="navbar relative bg-base-100 min-h-16 w-[90%] mx-auto border-b-2 border-[#1d4362]">
-
       <div className="navbar-start">
         <Link
           to="/"
@@ -31,11 +30,13 @@ function Navbar() {
           <li>
             <Link to="/Profile">Profile</Link>
           </li>
+          <li>
+            <Link to="/MyTrip">MyTrip</Link>
+          </li>
         </ul>
       </div>
 
       <div className="navbar-end flex items-center gap-2">
-
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           className="md:hidden p-2 rounded-lg hover:bg-base-200 transition cursor-pointer"
@@ -53,7 +54,6 @@ function Navbar() {
 
       {menuOpen && (
         <div className="absolute top-full left-0 w-full md:hidden mt-2 p-4 rounded-xl bg-[#0D1825] border border-[#1E3042] flex flex-col gap-2 z-50">
-
           <Link
             to="/"
             onClick={() => setMenuOpen(false)}
@@ -84,6 +84,13 @@ function Navbar() {
             className="text-white p-2 rounded-lg hover:bg-white/10"
           >
             Profile
+          </Link>
+          <Link
+            to="/MyTrip"
+            onClick={() => setMenuOpen(false)}
+            className="text-white p-2 rounded-lg hover:bg-white/10"
+          >
+            MyTrip
           </Link>
         </div>
       )}
