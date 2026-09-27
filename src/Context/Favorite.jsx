@@ -19,19 +19,19 @@ function Favorite({ children }) {
     }
     const isFavorite = favorite.some((item) => {
       return (
-        item.coordinates &&
-        country.coordinates &&
-        item.coordinates.lat === country.coordinates.lat &&
-        item.coordinates.lng === country.coordinates.lng
+        item.latlng &&
+        country.latlng &&
+        item.latlng[0] === country.latlng[0] &&
+        item.latlng[1] === country.latlng[1]
       );
     });
     if (isFavorite) {
       const newFavorite = favorite.filter((item) => {
         return (
-          item.coordinates &&
-          country.coordinates &&
-          (item.coordinates.lat !== country.coordinates.lat ||
-            item.coordinates.lng !== country.coordinates.lng)
+          item.latlng &&
+          country.latlng &&
+          (item.latlng[0] !== country.latlng[0] ||
+            item.latlng[1] !== country.latlng[1])
         );
       });
       setFavorite(newFavorite);

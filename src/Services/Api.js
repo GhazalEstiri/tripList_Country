@@ -1,15 +1,10 @@
-const BASE_URL = "https://api.restcountries.com";
+const BASE_URL = "https://countries.dev";
 const API_KEY = import.meta.env.VITE_API_KEY_COUNTRY;
 const WEATHER_URL = "https://api.open-meteo.com/v1/forecast";
 
-export async function getCountry() {
+export async function getCountry(limit, offset) {
   const response = await fetch(
-    `${BASE_URL}/countries/v5?response_fields=names.common,coordinates,flag&limit=100`,
-    {
-      headers: {
-        Authorization: `Bearer ${API_KEY}`,
-      },
-    },
+    `${BASE_URL}/countries?fields=name%2Ccapital%2Cflag&full=true&sort=population&limit=${limit}&offset=${offset}`,
   );
 
   console.log(response.status);
@@ -17,14 +12,20 @@ export async function getCountry() {
   const data = await response.json();
   console.log("data:", data);
 
-  return data.data.objects;
+  return data;
+}
+
+export async function searchCountry(nameCountry) {
+  const response = await fetch(`${BASE_URL}/name/${nameCountry}`);
+  console.log(response.status);
+  const data = await response.json();
+  console.log("data:", data);
+
+  return data;
 }
 
 export async function getWeather(latitude, longitude) {
-  const response = await fetch(`
-${WEATHER_URL}?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code,wind_speed_10m
-    
-    `);
+  const response = await fetch(`${WEATHER_URL}?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,wind_speed_10m,weather_code&current_units=temperature_2m,wind_speed_10m`);
   console.log(response.status);
 
   const data = await response.json();

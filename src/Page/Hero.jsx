@@ -4,7 +4,7 @@ function Hero() {
     <section className="card lg:card-side overflow-hidden bg-base-100 p-5 w-[95%] flex mx-auto">
       <div className="card-body justify-center p-8 lg:w-1/2 relative" >
         <p className="text-xs font-semibold tracking-[0.25em] text-[#1d4362]">
-          195 COUNTRIES. ONE WORLD.
+          250 COUNTRIES. ONE WORLD.
         </p>
         <div className=" flex-col mb-70 flex gap-2">
           <h1 className="text-4xl font-bold leading-tight text-[#1d4362] md:text-5xl  flex gap-2">
@@ -14,14 +14,14 @@ function Hero() {
             <br />
             Not Things.
           </h1>
-        <p className="max-w-md text-sm  text-base-content/60 w-150">
+        <p className="max-w-150 text-sm  text-base-content/60 ">
           Explore countries, save your favorites, and build your dream travel
           list.
         </p>
         </div>
-        <div className="flex flex-row absolute bottom-30 gap-10 text-[#1d4362]">
+        <div className="flex flex-row absolute bottom-30 gap-1 md:gap-10 text-[#1d4362]  lg:w-110 ">
           <p className="flex flex-col border-r-2 pr-4">
-            <span className="font-bold">195</span> Countries
+            <span className="font-bold">250</span> Countries
           </p>
           <p className="flex flex-col border-r-2 pr-4">
             <span className="font-bold">5</span> Continents
@@ -35,7 +35,8 @@ function Hero() {
         </div>
       </div>
 
-      <div className="flex h-full w-full items-center justify-center">
+
+      <div className="hidden lg:flex h-full w-full items-center justify-center ">
         <svg viewBox="0 0 200 200" className="h-220 w-220 -mt-10">
           <defs>
             <clipPath id="blob">

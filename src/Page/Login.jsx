@@ -16,6 +16,8 @@ function Login() {
   const [pasword, setPasword] = useState("");
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [remmember, setRemmember] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const regexPasword = /^(?=.*[A-Za-z])(?=.*[0-9]).{8,}$/;
   const regexName = /^[A-Za-z]+$/;
@@ -58,8 +60,16 @@ function Login() {
       );
       return;
     }
+    if (!confirmPassword) {
+      setError("confirmPassword is empty.");
+      return;
+    }
+    if (pasword !==confirmPassword) {
+      setError("یکی نیست پسسووردا");
+      return;
+    }
 
-    login(name, email);
+    login(name, email, remmember);
     setError("");
     navigate("/");
   };
@@ -219,11 +229,48 @@ function Login() {
                     </div>
                   </div>
 
+                  <div>
+                    <label className="block text-xs font-medium text-[#52677a] mb-2">
+                      confirmPassword
+                    </label>
+
+                    <div className="relative">
+                      <LockKeyhole
+                        size={17}
+                        className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+                      />
+
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        value={confirmPassword}
+                        placeholder="••••••••"
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        className="w-full h-12 rounded-xl border border-[#dce5ec] bg-[#fbfcfd] pl-11 pr-12 text-sm outline-none focus:border-[#173c5c] transition"
+                      />
+
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#173c5c]"
+                      >
+                        {showPassword ? (
+                          <EyeOff size={17} />
+                        ) : (
+                          <Eye size={17} />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+
                   <div className="flex items-center justify-between text-xs">
                     <label className="flex items-center gap-2 text-gray-500">
                       {/* <input type="checkbox" className="accent-[#173c5c]" /> */}
-                      <input type="checkbox" className="checkbox validator"  title="Required" />
-
+                      <input
+                        type="checkbox"
+                        className="checkbox validator"
+                        title="Required"
+                        onChange={() => setRemmember(!remmember)}
+                      />
                       Remember me
                     </label>
 
