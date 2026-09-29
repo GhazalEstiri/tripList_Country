@@ -14,7 +14,6 @@ export async function getCountry(limit, offset) {
 
   return data;
 }
-
 export async function searchCountry(nameCountry) {
   const response = await fetch(`${BASE_URL}/name/${nameCountry}`);
   console.log(response.status);
