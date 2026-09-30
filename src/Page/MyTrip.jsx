@@ -3,7 +3,7 @@ import { getCountry } from "../Services/Api";
 import { initialState, tripReducer } from "../Reducer/tripReducer";
 import { useEffect, useState, useReducer } from "react";
 import { Link } from "react-router";
-import { UserRoundGroup, Wallet } from "lucide-react";
+import { UserRoundGroup, Wallet, Trash, Pencil } from "lucide-react";
 // import { useNavigate, useParams, Link } from "react-router";
 function MyTrip({ state, dispatch }) {
   const [country, setCountry] = useState([]);
@@ -227,11 +227,7 @@ function MyTrip({ state, dispatch }) {
             state.trip.map((trip) => {
               return (
                 <div className="flex flex-col">
-                  <Link
-                    className="card p-4 mt-4 w-full"
-                    key={trip.id}
-                    to={`/TripDetail/${trip.id}`}
-                  >
+                  <div className="card p-4 mt-4 w-full">
                     <div className="card w-65 md:w-80 lg:w-96 bg-base-100 shadow-sm">
                       <div className="card-body">
                         {/* <span className="badge badge-lg  bg-[#EAF3F8] text-[#1D4362] rounded-2xl p-4">
@@ -241,6 +237,20 @@ function MyTrip({ state, dispatch }) {
                           <h2 className="text-3xl font-bold text-[#1D4362] line-clamp-1">
                             {trip.country}
                           </h2>
+                          <div className="flex flex-row justify-between gap-2">
+                            <button
+                              className=" bg-white text-[#144970] btn-block shadow-[#144970] shadow-sm w-10 h-10 rounded-full  mx-auto cursor-pointer"
+                              onClick={() => deleteCard(trip.id)}
+                            >
+                              <Trash className="mx-auto"/>
+                            </button>
+                            <button
+                              className=" bg-white text-[#144970] btn-block shadow-[#144970] shadow-sm w-10 h-10 rounded-full mx-auto cursor-pointer"
+                              onClick={() => editeCards(trip.id)}
+                            >
+                              <Pencil className="mx-auto"/>
+                            </button>
+                          </div>
                           {/* <span className="text-xl">{trip.budget}</span> */}
                         </div>
                         <ul className="mt-6 flex flex-col gap-2 text-xs">
@@ -259,26 +269,13 @@ function MyTrip({ state, dispatch }) {
                         </ul>
                         <div className="mt-6">
                           <button className="btn btn-primary bg-[#144970] btn-block shadow-[#144970] shadow-sm">
-                            
-                            More Details
+                            <Link key={trip.id} to={`/TripDetail/${trip.id}`}>
+                              More Details
+                            </Link>
                           </button>
                         </div>
                       </div>
                     </div>
-                  </Link>
-                  <div className="flex-2 flex-row justify-between w-full">
-                    <button
-                      className=" btn btn-primary bg-[#144970] btn-block shadow-[#144970] shadow-sm w-20 mx-auto"
-                      onClick={() => deleteCard(trip.id)}
-                    >
-                      delete
-                    </button>
-                    <button
-                      className="btn btn-primary bg-[#144970] btn-block shadow-[#144970] shadow-sm w-20 mx-auto"
-                      onClick={() => editeCards(trip.id)}
-                    >
-                      edite
-                    </button>
                   </div>
                 </div>
               );

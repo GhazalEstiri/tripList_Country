@@ -178,12 +178,12 @@ function TripDetail({ state, dispatch }) {
               </p>
               <button
                 onClick={() => deleteItem(trip.id, expense.id, expense.amount)}
-                className="w-50 h-12  p-2 rounded-xl bg-[#093775] text-white font-medium hover:bg-[#001f49] transition ml-10"
+                className="w-50 h-12  p-2 rounded-xl bg-[#093775] text-white font-medium hover:bg-[#001f49] transition ml-10 cursor-pointer"
               >
                 delete
               </button>
               <button
-                className="w-50 h-12  p-2 rounded-xl bg-[#093775] text-white font-medium hover:bg-[#001f49] transition"
+                className="w-50 h-12  p-2 rounded-xl bg-[#093775] text-white font-medium hover:bg-[#001f49] transition cursor-pointer"
                 onClick={() => editeItem(expense)}
               >
                 edite
