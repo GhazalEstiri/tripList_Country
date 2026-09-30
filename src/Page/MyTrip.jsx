@@ -8,7 +8,7 @@ import { UserRoundGroup, Wallet } from "lucide-react";
 function MyTrip({ state, dispatch }) {
   const [country, setCountry] = useState([]);
   const [selectedCountry, setSelectedcountry] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
+  // const [selectedCategory, setSelectedCategory] = useState("");
   const [companion, setCompanion] = useState([""]);
   const [budget, setBudget] = useState("");
   const [editeCard, setEditeCard] = useState(null);
@@ -35,7 +35,7 @@ function MyTrip({ state, dispatch }) {
     const newTrip = {
       id: Date.now(),
       country: selectedCountry,
-      category: selectedCategory,
+      // category: selectedCategory,
       companion: companion,
       budget: Number(budget),
       expenses: [],
@@ -47,12 +47,12 @@ function MyTrip({ state, dispatch }) {
     });
 
     setSelectedcountry("");
-    setSelectedCategory("");
+    // setSelectedCategory("");
     setCompanion([""]);
     setBudget("");
     setEditeCard(null);
 
-    console.log("category:", selectedCategory);
+    // console.log("category:", selectedCategory);
   }
 
   function deleteCard(tripId) {
@@ -65,7 +65,7 @@ function MyTrip({ state, dispatch }) {
     const trip = state.trip.find((item) => item.id === tripId);
     setEditeCard(trip);
     setSelectedcountry(trip.country);
-    setSelectedCategory(trip.category);
+    // setSelectedCategory(trip.category);
     setCompanion(trip.companion);
     setBudget(trip.budget);
     document.getElementById("my_modal_1").showModal();
@@ -124,7 +124,7 @@ function MyTrip({ state, dispatch }) {
                   )}
                 </select>
               </div>
-              <div>
+              {/* <div>
                 <select
                   name="category"
                   id="category"
@@ -139,7 +139,7 @@ function MyTrip({ state, dispatch }) {
                   <option value="Leisure">Leisure</option>
                   <option value="Transportation">Transportation</option>
                 </select>
-              </div>
+              </div> */}
               <div className="flex flex-row w-full  justify-between gap-5">
                 <div className="join grid grid-cols-1 gap-2">
                   {companion.length > 0 &&
@@ -195,7 +195,7 @@ function MyTrip({ state, dispatch }) {
                         payload: {
                           tripId: editeCard.id,
                           country: selectedCountry,
-                          category: selectedCategory,
+                          // category: selectedCategory,
                           companion: companion,
                           budget: Number(budget),
                         },
@@ -205,7 +205,7 @@ function MyTrip({ state, dispatch }) {
                     }
                     document.getElementById("my_modal_1").close();
                     setSelectedcountry("");
-                    setSelectedCategory("");
+                    // setSelectedCategory("");
                     setCompanion([""]);
                     setBudget("");
                     setEditeCard(null);
@@ -234,9 +234,9 @@ function MyTrip({ state, dispatch }) {
                   >
                     <div className="card w-65 md:w-80 lg:w-96 bg-base-100 shadow-sm">
                       <div className="card-body">
-                        <span className="badge badge-lg  bg-[#EAF3F8] text-[#1D4362] rounded-2xl p-4">
+                        {/* <span className="badge badge-lg  bg-[#EAF3F8] text-[#1D4362] rounded-2xl p-4">
                           {trip.category}
-                        </span>
+                        </span> */}
                         <div className="flex justify-between">
                           <h2 className="text-3xl font-bold text-[#1D4362] line-clamp-1">
                             {trip.country}

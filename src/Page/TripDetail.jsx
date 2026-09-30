@@ -7,6 +7,7 @@ function TripDetail({ state, dispatch }) {
   const [amount, setAmount] = useState("");
   const [reason, setReason] = useState("");
   const [companion, setCompanion] = useState([""]);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   const trip = state.trip.find((item) => item.id === Number(id));
   if (!trip) {
@@ -18,7 +19,7 @@ function TripDetail({ state, dispatch }) {
       type: "ADD_EXPENSE",
       payload: {
         tripId: trip.id,
-        category: trip.category,
+        category: selectedCategory,
         amount: Number(amount),
         reason: reason,
         companion: companion,
@@ -27,6 +28,7 @@ function TripDetail({ state, dispatch }) {
     setReason("");
     setAmount("");
     setCompanion("");
+    setSelectedCategory("");
   }
   function deleteItem(tripId, expenseId, amount) {
     dispatch({
@@ -55,9 +57,9 @@ function TripDetail({ state, dispatch }) {
                 </span>
                 {trip.country}
               </h2>
-              <span className="badge badge-lg  bg-[#EAF3F8] text-[#1D4362] rounded-2xl p-4">
+              {/* <span className="badge badge-lg  bg-[#EAF3F8] text-[#1D4362] rounded-2xl p-4">
                 {trip.category}
-              </span>
+              </span> */}
               {/* <span className="text-xl">{trip.budget}</span> */}
             </div>
             <div className="flex flex-row justify-between">
@@ -108,6 +110,22 @@ function TripDetail({ state, dispatch }) {
             onChange={(e) => setCompanion(e.target.value)}
             className="w-full h-12 rounded-xl border border-[#dce5ec] bg-[#fbfcfd] pl-11 pr-4 text-sm outline-none focus:border-[#173c5c] transition"
           />
+          <div>
+            <select
+              name="category"
+              id="category"
+              value={selectedCategory}
+              className="select [&::picker(select)]:max-h-30 w-50 h-12 rounded-xl border border-[#dce5ec] bg-[#fbfcfd] pl-11 pr-4 text-sm outline-none focus:border-[#173c5c] transition"
+              onChange={(e) => setSelectedCategory(e.target.value)}
+            >
+              <option value="">Select category</option>
+              <option value="Tickets">Tickets</option>
+              <option value="Hotel">Hotel</option>
+              <option value="Food">Food</option>
+              <option value="Leisure">Leisure</option>
+              <option value="Transportation">Transportation</option>
+            </select>
+          </div>
           <button
             onClick={addExpense}
             className="w-50 h-12  p-2 rounded-xl bg-[#093775] text-white font-medium hover:bg-[#001f49] transition"
