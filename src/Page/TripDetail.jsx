@@ -6,6 +6,8 @@ function TripDetail({ state, dispatch }) {
   const { id } = useParams();
   const [amount, setAmount] = useState("");
   const [reason, setReason] = useState("");
+  const [companion, setCompanion] = useState([""]);
+
   const trip = state.trip.find((item) => item.id === Number(id));
   if (!trip) {
     return <p>Trip not found</p>;
@@ -19,10 +21,12 @@ function TripDetail({ state, dispatch }) {
         category: trip.category,
         amount: Number(amount),
         reason: reason,
+        companion: companion,
       },
     });
     setReason("");
     setAmount("");
+    setCompanion("");
   }
   function deleteItem(tripId, expenseId, amount) {
     dispatch({
@@ -42,16 +46,6 @@ function TripDetail({ state, dispatch }) {
         <Navbar />
       </div>
       <div>
-        {/* <div className="flex flex-col">
-          <h1>{trip.country}</h1>
-
-          <p>Trip Category: {trip.category}</p>
-
-          <p>Companion: {trip.companion.join(", ")}</p>
-
-          <h2>Remaining Budget: {trip.budget}</h2>
-        </div> */}
-
         <div className="card w-[90%] flex justify-center items-center mx-auto shadow-sm mt-10 bg-[#FBFCFD]">
           <div className="card-body w-full flex justify-around">
             <div className="flex justify-between">
@@ -107,6 +101,13 @@ function TripDetail({ state, dispatch }) {
             onChange={(e) => setReason(e.target.value)}
             className="w-full h-12 rounded-xl border border-[#dce5ec] bg-[#fbfcfd] pl-11 pr-4 text-sm outline-none focus:border-[#173c5c] transition"
           />
+          <input
+            type="text"
+            placeholder="companion"
+            value={companion}
+            onChange={(e) => setCompanion(e.target.value)}
+            className="w-full h-12 rounded-xl border border-[#dce5ec] bg-[#fbfcfd] pl-11 pr-4 text-sm outline-none focus:border-[#173c5c] transition"
+          />
           <button
             onClick={addExpense}
             className="w-50 h-12  p-2 rounded-xl bg-[#093775] text-white font-medium hover:bg-[#001f49] transition"
@@ -129,6 +130,9 @@ function TripDetail({ state, dispatch }) {
               </p>
               <p className="w-92 h-12 rounded-xl border border-[#dce5ec] bg-[#fbfcfd]  text-sm flex justify-center items-center mx-auto">
                 {expense.reason}
+              </p>
+              <p className="w-92 h-12 rounded-xl border border-[#dce5ec] bg-[#fbfcfd]  text-sm flex justify-center items-center mx-auto">
+                {expense.companion}
               </p>
               <button
                 onClick={() => deleteItem(trip.id, expense.id, expense.amount)}

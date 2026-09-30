@@ -24,6 +24,7 @@ function tripReducer(state, action) {
                   category: action.payload.category,
                   amount: action.payload.amount,
                   reason: action.payload.reason,
+                  companion: action.payload.companion,
                 },
               ],
             };
@@ -62,7 +63,18 @@ function tripReducer(state, action) {
     case "EDIT_TRIP": {
       return {
         ...state,
-        
+        trip: state.trip.map((trip) => {
+          if (trip.id === action.payload.tripId) {
+            return {
+              ...trip,
+              category: action.payload.category,
+              country: action.payload.country,
+              companion: action.payload.companion,
+              budget: action.payload.budget,
+            };
+          }
+          return trip;
+        }),
       };
     }
     default:

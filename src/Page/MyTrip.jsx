@@ -11,8 +11,7 @@ function MyTrip({ state, dispatch }) {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [companion, setCompanion] = useState([""]);
   const [budget, setBudget] = useState("");
-  const [editeCard , setEditeCard]=useState(null)
-  co
+  const [editeCard, setEditeCard] = useState(null);
   // const navigate = useNavigate();
   // const { id } = useParams();
 
@@ -51,6 +50,8 @@ function MyTrip({ state, dispatch }) {
     setSelectedCategory("");
     setCompanion([""]);
     setBudget("");
+    setEditeCard(null);
+
     console.log("category:", selectedCategory);
   }
 
@@ -60,13 +61,14 @@ function MyTrip({ state, dispatch }) {
       payload: tripId,
     });
   }
-  function editeCard(tripId) {
-    dispatch({
-      type: "EDIT_TRIP",
-      payload: {
-        tripId: tripId,
-      },
-    });
+  function editeCards(tripId) {
+    const trip = state.trip.find((item) => item.id === tripId);
+    setEditeCard(trip);
+    setSelectedcountry(trip.country);
+    setSelectedCategory(trip.category);
+    setCompanion(trip.companion);
+    setBudget(trip.budget);
+    document.getElementById("my_modal_1").showModal();
   }
   console.log(state);
   return (
@@ -186,10 +188,29 @@ function MyTrip({ state, dispatch }) {
                   method="dialog"
                   onSubmit={(e) => {
                     e.preventDefault();
-                    addTrip();
+
+                    if (editeCard) {
+                      dispatch({
+                        type: "EDIT_TRIP",
+                        payload: {
+                          tripId: editeCard.id,
+                          country: selectedCountry,
+                          category: selectedCategory,
+                          companion: companion,
+                          budget: Number(budget),
+                        },
+                      });
+                    } else {
+                      addTrip();
+                    }
                     document.getElementById("my_modal_1").close();
+                    setSelectedcountry("");
+                    setSelectedCategory("");
+                    setCompanion([""]);
+                    setBudget("");
+                    setEditeCard(null);
                   }}
-                    >
+                >
                   {/* if there is a button in form, it will close the modal */}
                   <button className="btn btn-primary bg-[#144970] btn-block shadow-[#144970] shadow-sm w-30 mx-auto ">
                     Add Trip
@@ -244,6 +265,7 @@ function MyTrip({ state, dispatch }) {
                       </div>
                     </div>
                   </Link>
+
                   <button
                     className="btn btn-primary bg-[#144970] btn-block shadow-[#144970] shadow-sm w-20 mx-auto"
                     onClick={() => deleteCard(trip.id)}
@@ -252,7 +274,7 @@ function MyTrip({ state, dispatch }) {
                   </button>
                   <button
                     className="btn btn-primary bg-[#144970] btn-block shadow-[#144970] shadow-sm w-20 mx-auto"
-                    onClick={() => editeCard(trip.id)}
+                    onClick={() => editeCards(trip.id)}
                   >
                     edite
                   </button>
