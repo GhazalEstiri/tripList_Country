@@ -77,6 +77,33 @@ function tripReducer(state, action) {
         }),
       };
     }
+
+    case "EDIT_ITEM": {
+      return {
+        ...state,
+        trip: state.trip.map((trip) => {
+          if (trip.id == action.payload.tripId) {
+            return {
+              ...trip,
+              expenses: trip.expenses.map((expense) => {
+                if (expense.id === action.payload.expenseId) {
+                  return {
+                    ...expense,
+                    category: action.payload.category,
+                    companion: action.payload.companion,
+                    amount: action.payload.amount,
+                    reason: action.payload.reason,
+                  };
+                }
+                return expense;
+              }),
+            };
+          }
+          return trip;
+        }),
+      };
+    }
+
     default:
       return state;
   }

@@ -259,25 +259,27 @@ function MyTrip({ state, dispatch }) {
                         </ul>
                         <div className="mt-6">
                           <button className="btn btn-primary bg-[#144970] btn-block shadow-[#144970] shadow-sm">
+                            
                             More Details
                           </button>
                         </div>
                       </div>
                     </div>
                   </Link>
-
-                  <button
-                    className="btn btn-primary bg-[#144970] btn-block shadow-[#144970] shadow-sm w-20 mx-auto"
-                    onClick={() => deleteCard(trip.id)}
-                  >
-                    delete
-                  </button>
-                  <button
-                    className="btn btn-primary bg-[#144970] btn-block shadow-[#144970] shadow-sm w-20 mx-auto"
-                    onClick={() => editeCards(trip.id)}
-                  >
-                    edite
-                  </button>
+                  <div className="flex-2 flex-row justify-between w-full">
+                    <button
+                      className=" btn btn-primary bg-[#144970] btn-block shadow-[#144970] shadow-sm w-20 mx-auto"
+                      onClick={() => deleteCard(trip.id)}
+                    >
+                      delete
+                    </button>
+                    <button
+                      className="btn btn-primary bg-[#144970] btn-block shadow-[#144970] shadow-sm w-20 mx-auto"
+                      onClick={() => editeCards(trip.id)}
+                    >
+                      edite
+                    </button>
+                  </div>
                 </div>
               );
             })

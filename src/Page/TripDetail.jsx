@@ -8,6 +8,7 @@ function TripDetail({ state, dispatch }) {
   const [reason, setReason] = useState("");
   const [companion, setCompanion] = useState([""]);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [editingExpense, setEditingExpense] = useState(null);
 
   const trip = state.trip.find((item) => item.id === Number(id));
   if (!trip) {
@@ -15,16 +16,31 @@ function TripDetail({ state, dispatch }) {
   }
 
   function addExpense() {
-    dispatch({
-      type: "ADD_EXPENSE",
-      payload: {
-        tripId: trip.id,
-        category: selectedCategory,
-        amount: Number(amount),
-        reason: reason,
-        companion: companion,
-      },
-    });
+    if (editingExpense) {
+      dispatch({
+        type: "EDIT_ITEM",
+        payload: {
+          tripId: trip.id,
+          expenseId: editingExpense.id,
+          category: selectedCategory,
+          amount: Number(amount),
+          reason: reason,
+          companion: companion,
+        },
+      });
+      setEditingExpense(null);
+    } else {
+      dispatch({
+        type: "ADD_EXPENSE",
+        payload: {
+          tripId: trip.id,
+          category: selectedCategory,
+          amount: Number(amount),
+          reason: reason,
+          companion: companion,
+        },
+      });
+    }
     setReason("");
     setAmount("");
     setCompanion("");
@@ -42,6 +58,14 @@ function TripDetail({ state, dispatch }) {
       },
     });
   }
+  function editeItem(expense) {
+    setEditingExpense(expense);
+    setAmount(expense.amount);
+    setCompanion(expense.companion);
+    setReason(expense.reason);
+    setSelectedCategory(expense.category);
+  }
+
   return (
     <section className="flex flex-col">
       <div>
@@ -128,9 +152,9 @@ function TripDetail({ state, dispatch }) {
           </div>
           <button
             onClick={addExpense}
-            className="w-50 h-12  p-2 rounded-xl bg-[#093775] text-white font-medium hover:bg-[#001f49] transition"
+            className="w-70 h-12  p-2 rounded-xl bg-[#093775] text-white font-medium hover:bg-[#001f49] transition"
           >
-            Add
+            {editingExpense ? "Save" : "Add"}
           </button>
         </div>
 
@@ -157,6 +181,12 @@ function TripDetail({ state, dispatch }) {
                 className="w-50 h-12  p-2 rounded-xl bg-[#093775] text-white font-medium hover:bg-[#001f49] transition ml-10"
               >
                 delete
+              </button>
+              <button
+                className="w-50 h-12  p-2 rounded-xl bg-[#093775] text-white font-medium hover:bg-[#001f49] transition"
+                onClick={() => editeItem(expense)}
+              >
+                edite
               </button>
             </div>
           ))}
