@@ -11,7 +11,8 @@ function MyTrip({ state, dispatch }) {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [companion, setCompanion] = useState([""]);
   const [budget, setBudget] = useState("");
-
+  const [editeCard , setEditeCard]=useState(null)
+  co
   // const navigate = useNavigate();
   // const { id } = useParams();
 
@@ -39,8 +40,7 @@ function MyTrip({ state, dispatch }) {
       companion: companion,
       budget: Number(budget),
       expenses: [],
-        totalBudget: Number(budget),
-
+      totalBudget: Number(budget),
     };
     dispatch({
       type: "ADD_TRIP",
@@ -60,7 +60,14 @@ function MyTrip({ state, dispatch }) {
       payload: tripId,
     });
   }
-
+  function editeCard(tripId) {
+    dispatch({
+      type: "EDIT_TRIP",
+      payload: {
+        tripId: tripId,
+      },
+    });
+  }
   console.log(state);
   return (
     <section className="w-full flex flex-col">
@@ -80,7 +87,6 @@ function MyTrip({ state, dispatch }) {
         </div>
 
         <div>
-          {/* Open the modal using document.getElementById('ID').showModal() method */}
           <button
             className="btn bg-[#144970] text-white text-lg rounded-xl p-5"
             onClick={() => document.getElementById("my_modal_1").showModal()}
@@ -93,12 +99,12 @@ function MyTrip({ state, dispatch }) {
             </p>
           </button>
           <dialog id="my_modal_1" className="modal">
-            <div className="modal-box">
-              <div>
+            <div className="modal-box flex flex-col border-2 border-[#144970] gap-5">
+              <div className="">
                 <select
                   name="country"
                   id="country"
-                  className="w-50"
+                  className="select [&::picker(select)]:max-h-26 w-full rounded-xl border border-[#144970] bg-[#fbfcfd]  text-sm outline-none focus:border-[#173c5c] transition"
                   value={selectedCountry}
                   onChange={(e) => setSelectedcountry(e.target.value)}
                 >
@@ -106,11 +112,7 @@ function MyTrip({ state, dispatch }) {
                   {country.length > 0 ? (
                     country.map((item) => {
                       return (
-                        <option
-                          value={item.name}
-                          key={item.name}
-                          className="w-50 h-30"
-                        >
+                        <option value={item.name} key={item.name} className="">
                           {item.name}
                         </option>
                       );
@@ -125,6 +127,7 @@ function MyTrip({ state, dispatch }) {
                   name="category"
                   id="category"
                   value={selectedCategory}
+                  className="select [&::picker(select)]:max-h-26 w-full rounded-xl border border-[#144970] bg-[#fbfcfd]  text-sm outline-none focus:border-[#173c5c] transition"
                   onChange={(e) => setSelectedCategory(e.target.value)}
                 >
                   <option value="">Select category</option>
@@ -135,44 +138,47 @@ function MyTrip({ state, dispatch }) {
                   <option value="Transportation">Transportation</option>
                 </select>
               </div>
-              <div className="join">
-                {companion.length > 0 &&
-                  companion.map((person, index) => {
-                    return (
-                      <input
-                        className="input join-item"
-                        placeholder="Companion"
-                        value={person}
-                        key={index}
-                        onChange={(e) => {
-                          const newCompanion = companion.map((item, i) => {
-                            if (i === index) {
-                              return e.target.value;
-                            }
-                            return item;
-                          });
-                          setCompanion(newCompanion);
-                        }}
-                      />
-                    );
-                  })}
-
+              <div className="flex flex-row w-full  justify-between gap-5">
+                <div className="join grid grid-cols-1 gap-2">
+                  {companion.length > 0 &&
+                    companion.map((person, index) => {
+                      return (
+                        <div className="">
+                          <input
+                            className="input join-item w-100 outline-none  rounded-xl bg-[#fbfcfd] "
+                            placeholder="Companion"
+                            value={person}
+                            key={index}
+                            onChange={(e) => {
+                              const newCompanion = companion.map((item, i) => {
+                                if (i === index) {
+                                  return e.target.value;
+                                }
+                                return item;
+                              });
+                              setCompanion(newCompanion);
+                            }}
+                          />
+                        </div>
+                      );
+                    })}
+                </div>
                 <button
-                  className="btn join-item rounded-r-full"
+                  className="btn join-item rounded-xl btn-primary bg-[#144970] btn-block shadow-[#144970] shadow-sm w-10 mx-auto"
                   onClick={() => setCompanion([...companion, ""])}
                 >
                   +
                 </button>
               </div>
-              <div className="join">
+              <div className="join ">
                 <input
-                  className="input join-item"
+                  className="input join-item  w-full outline-none  rounded-2xl bg-[#fbfcfd] "
                   placeholder="budget"
                   type="number"
                   value={budget}
                   onChange={(e) => setBudget(e.target.value)}
                 />
-                <button className="btn join-item rounded-r-full">+</button>
+                {/* <button className="btn join-item rounded-r-full">+</button> */}
               </div>
 
               <div className="modal-action">
@@ -183,9 +189,11 @@ function MyTrip({ state, dispatch }) {
                     addTrip();
                     document.getElementById("my_modal_1").close();
                   }}
-                >
+                    >
                   {/* if there is a button in form, it will close the modal */}
-                  <button className="btn">Add Trip</button>
+                  <button className="btn btn-primary bg-[#144970] btn-block shadow-[#144970] shadow-sm w-30 mx-auto ">
+                    Add Trip
+                  </button>
                 </form>
               </div>
             </div>
@@ -194,25 +202,6 @@ function MyTrip({ state, dispatch }) {
       </section>
       <div className="flex flex-row  ">
         <section className="bg-white w-[95%] grid  grid-cols-1 md:grid-cols-2  xl:grid-cols-3 p-15 gap-10 ">
-          {/* {state.trip.length > 0 ? (
-          state.trip.map((trip) => {
-            return (
-              <Link
-                className="card bg-base-200 p-4 mt-4"
-                key={trip.id}
-                to={`/TripDetail/${trip.id}`}
-              >
-                <p>{trip.country}</p>
-                <p>{trip.category}</p>
-                <p>{trip.companion.join(", ")}</p>
-                <p>{trip.budget}</p>
-              </Link>
-            );
-          })
-        ) : (
-          <p>nothing here</p>
-        )} */}
-          {/* flex flex-row w-105 gap-5 justify-center mt-20 */}
           {state.trip.length > 0 ? (
             state.trip.map((trip) => {
               return (
@@ -260,6 +249,12 @@ function MyTrip({ state, dispatch }) {
                     onClick={() => deleteCard(trip.id)}
                   >
                     delete
+                  </button>
+                  <button
+                    className="btn btn-primary bg-[#144970] btn-block shadow-[#144970] shadow-sm w-20 mx-auto"
+                    onClick={() => editeCard(trip.id)}
+                  >
+                    edite
                   </button>
                 </div>
               );

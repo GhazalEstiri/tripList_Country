@@ -48,15 +48,21 @@ function tripReducer(state, action) {
           if (trip.id === action.payload.tripId) {
             return {
               ...trip,
-              budget:trip.budget + action.payload.amount ,
-                expenses: trip.expenses.filter((expense) => {
-              return expense.id !== action.payload.expenseId;
-            }),
+              budget: trip.budget + action.payload.amount,
+              expenses: trip.expenses.filter((expense) => {
+                return expense.id !== action.payload.expenseId;
+              }),
             };
           }
 
           return trip;
         }),
+      };
+    }
+    case "EDIT_TRIP": {
+      return {
+        ...state,
+        
       };
     }
     default:
