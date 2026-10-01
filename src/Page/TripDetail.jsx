@@ -9,7 +9,7 @@ function TripDetail({ state, dispatch }) {
   const [companion, setCompanion] = useState([""]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [editingExpense, setEditingExpense] = useState(null);
-
+  const [filteredCategory, setFilteredCategory] = useState("");
   const trip = state.trip.find((item) => item.id === Number(id));
   if (!trip) {
     return <p>Trip not found</p>;
@@ -66,6 +66,10 @@ function TripDetail({ state, dispatch }) {
     setSelectedCategory(expense.category);
   }
 
+  const filteredExpenses = trip.expenses.filter(
+    (expense) =>
+      expense.category === filteredCategory || filteredCategory === "",
+  );
   return (
     <section className="flex flex-col">
       <div>
@@ -74,7 +78,7 @@ function TripDetail({ state, dispatch }) {
       <div>
         <div className="card w-[90%] flex justify-center items-center mx-auto shadow-sm mt-10 bg-[#FBFCFD]">
           <div className="card-body w-full flex justify-around">
-            <div className="flex justify-between">
+            <div className="flex justify-between flex-row mb-5">
               <h2 className="text-3xl font-bold text-[#1D4362] line-clamp-1 flex flex-row items-center gap-3">
                 <span>
                   <MapPin />
@@ -85,6 +89,22 @@ function TripDetail({ state, dispatch }) {
                 {trip.category}
               </span> */}
               {/* <span className="text-xl">{trip.budget}</span> */}
+              <div>
+                <select
+                  name="category"
+                  id="category"
+                  value={filteredCategory}
+                  className="select [&::picker(select)]:max-h-30 w-30 h-12  p-2 rounded-xl bg-[#1D4362] text-white font-medium hover:bg-[#001f49] transition cursor-pointer mr-20"
+                  onChange={(e) => setFilteredCategory(e.target.value)}
+                >
+                  <option value="">All</option>
+                  <option value="Tickets">Tickets</option>
+                  <option value="Hotel">Hotel</option>
+                  <option value="Food">Food</option>
+                  <option value="Leisure">Leisure</option>
+                  <option value="Transportation">Transportation</option>
+                </select>
+              </div>
             </div>
             <div className="flex flex-row justify-between">
               <ul className="mt-6 flex flex-col gap-2 text-xs">
@@ -159,7 +179,7 @@ function TripDetail({ state, dispatch }) {
         </div>
 
         <div className="flex gap-5 flex-col w-[91%] mx-auto mt-20">
-          {trip.expenses.map((expense) => (
+          {filteredExpenses.map((expense) => (
             <div
               key={expense.id}
               className="flex flex-row justify-between w-full gap-5"
@@ -186,7 +206,7 @@ function TripDetail({ state, dispatch }) {
                 className="w-50 h-12  p-2 rounded-xl bg-[#093775] text-white font-medium hover:bg-[#001f49] transition cursor-pointer"
                 onClick={() => editeItem(expense)}
               >
-                edite
+                edit
               </button>
             </div>
           ))}
