@@ -70,6 +70,12 @@ function MyTrip({ state, dispatch }) {
     setBudget(trip.budget);
     document.getElementById("my_modal_1").showModal();
   }
+
+  function undoTrip() {
+    dispatch({
+      type:"UNDO_CARD"
+    })
+  }
   console.log(state);
   return (
     <section className="w-full flex flex-col">
@@ -89,6 +95,11 @@ function MyTrip({ state, dispatch }) {
         </div>
 
         <div>
+           {state.deletedCard && (
+          <button onClick={undoTrip} className="w-20 btn bg-[#144970] text-white text-lg rounded-xl p-5">
+            Undo
+          </button>
+        )}
           <button
             className="btn bg-[#144970] text-white text-lg rounded-xl p-5"
             onClick={() => document.getElementById("my_modal_1").showModal()}

@@ -1,5 +1,7 @@
 const initialState = {
   trip: [],
+  deletedExpense: null,
+  deletedCard: null,
 };
 function tripReducer(state, action) {
   switch (action.type) {
@@ -35,14 +37,25 @@ function tripReducer(state, action) {
       };
     }
     case "DELETE_CARD": {
+      const deletedCard = state.trip.find((trip) => {
+        return trip.id === action.payload
+      });
+
       return {
         ...state,
         trip: state.trip.filter((trip) => {
-          return trip.id !== action.payload;
+          return trip.id !== action.payload
         }),
+        deletedCard: deletedCard,
       };
     }
     case "DELETE_ITEM": {
+      const tripToDelete = state.trip.find((trip) => {
+        return trip.id === action.payload.tripId;
+      });
+      const deletedExpense = tripToDelete.expenses.find((expense) => {
+        return expense.id === action.payload.expenseId;
+      });
       return {
         ...state,
         trip: state.trip.map((trip) => {
@@ -58,6 +71,10 @@ function tripReducer(state, action) {
 
           return trip;
         }),
+        deletedExpense: {
+          tripId: tripToDelete.id,
+          expense: deletedExpense,
+        },
       };
     }
     case "EDIT_TRIP": {
@@ -103,7 +120,29 @@ function tripReducer(state, action) {
         }),
       };
     }
-
+    case "UNDO_ITEM": {
+      return {
+        ...state,
+        trip: state.trip.map((trip) => {
+          if (trip.id == state.deletedExpense.tripId) {
+            return {
+              ...trip,
+              budget: trip.budget - state.deletedExpense.expense.amount,
+              expenses: [...trip.expenses, state.deletedExpense.expense],
+            };
+          }
+          return trip;
+        }),
+        deletedExpense: null,
+      };
+    }
+    case "UNDO_CARD": {
+      return {
+        ...state,
+        trip: [...state.trip, state.deletedCard],
+        deletedCard: null,
+      };
+    }
     default:
       return state;
   }

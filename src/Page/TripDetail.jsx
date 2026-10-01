@@ -65,6 +65,11 @@ function TripDetail({ state, dispatch }) {
     setReason(expense.reason);
     setSelectedCategory(expense.category);
   }
+  function undoItem() {
+    dispatch({
+      type: "UNDO_ITEM",
+    });
+  }
 
   const filteredExpenses = trip.expenses.filter(
     (expense) =>
@@ -132,6 +137,11 @@ function TripDetail({ state, dispatch }) {
             </div>
           </div>
         </div>
+        {state.deletedExpense && (
+          <button onClick={undoItem} className="w-20 mt-5 ml-20 h-12  p-2 rounded-xl bg-[#093775] text-white font-medium hover:bg-[#001f49] transition">
+            Undo
+          </button>
+        )}
         <div className="flex flex-row w-[90%] justify-center items-center mx-auto mt-20 gap-5">
           <input
             type="number"
