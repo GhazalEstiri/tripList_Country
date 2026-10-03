@@ -233,7 +233,7 @@ function MyTrip({ state, dispatch }) {
         </div>
       </section>
       <div className="flex flex-row  ">
-        <section className="bg-white w-[95%] grid  grid-cols-1 md:grid-cols-2  xl:grid-cols-3 p-15 gap-10 ">
+        <section className="bg-white w-[95%] grid  grid-cols-1 md:grid-cols-2  xl:grid-cols-3 p-15 gap-10 place-items-center">
           {state.trip.length > 0 ? (
             state.trip.map((trip) => {
               return (

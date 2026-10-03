@@ -83,7 +83,7 @@ function TripDetail({ state, dispatch }) {
       <div>
         <div className="card w-[90%] flex justify-center items-center mx-auto shadow-sm mt-10 bg-[#FBFCFD]">
           <div className="card-body w-full flex justify-around">
-            <div className="flex justify-between flex-row mb-5">
+            <div className="flex justify-between md:flex-row flex-col gap-10 md:gap-0 mb-5">
               <h2 className="text-3xl font-bold text-[#1D4362] line-clamp-1 flex flex-row items-center gap-3">
                 <span>
                   <MapPin />
@@ -111,7 +111,7 @@ function TripDetail({ state, dispatch }) {
                 </select>
               </div>
             </div>
-            <div className="flex flex-row justify-between">
+            <div className="flex md:flex-row flex-col gap-10 md:gap-0 justify-between">
               <ul className="mt-6 flex flex-col gap-2 text-xs">
                 <li className=" flex flex-row items-center gap-5 text-[#668096]">
                   <span>
@@ -124,11 +124,11 @@ function TripDetail({ state, dispatch }) {
                 <span>
                   <Wallet />
                 </span>
-                <span className="flex flex-col gap-2">
+                <span className="flex flex-col gap-2 ">
                   <span className="font-bold">Remaining Budget:</span>{" "}
                   <span>{trip.budget}</span>
                   <progress
-                    className="progress w-56"
+                    className="progress md:w-56 w-40"
                     value={trip.budget}
                     max={trip.totalBudget}
                   ></progress>
@@ -142,7 +142,7 @@ function TripDetail({ state, dispatch }) {
             Undo
           </button>
         )}
-        <div className="flex flex-row w-[90%] justify-center items-center mx-auto mt-20 gap-5">
+        <div className="flex md:flex-row flex-col w-[90%] justify-center items-center mx-auto mt-20 gap-5">
           <input
             type="number"
             placeholder="Amount"
@@ -164,12 +164,12 @@ function TripDetail({ state, dispatch }) {
             onChange={(e) => setCompanion(e.target.value)}
             className="w-full h-12 rounded-xl border border-[#dce5ec] bg-[#fbfcfd] pl-11 pr-4 text-sm outline-none focus:border-[#173c5c] transition"
           />
-          <div>
+          <div className="w-full">
             <select
               name="category"
               id="category"
               value={selectedCategory}
-              className="select [&::picker(select)]:max-h-30 w-50 h-12 rounded-xl border border-[#dce5ec] bg-[#fbfcfd] pl-11 pr-4 text-sm outline-none focus:border-[#173c5c] transition"
+              className="select [&::picker(select)]:max-h-30 w-full md:w-50 h-12 rounded-xl border border-[#dce5ec] bg-[#fbfcfd] pl-11 pr-4 text-sm outline-none focus:border-[#173c5c] transition"
               onChange={(e) => setSelectedCategory(e.target.value)}
             >
               <option value="">Select category</option>
@@ -182,7 +182,7 @@ function TripDetail({ state, dispatch }) {
           </div>
           <button
             onClick={addExpense}
-            className="w-70 h-12  p-2 rounded-xl bg-[#093775] text-white font-medium hover:bg-[#001f49] transition"
+            className="w-full md:w-70 h-12  p-2 rounded-xl bg-[#093775] text-white font-medium hover:bg-[#001f49] transition"
           >
             {editingExpense ? "Save" : "Add"}
           </button>
@@ -192,28 +192,28 @@ function TripDetail({ state, dispatch }) {
           {filteredExpenses.map((expense) => (
             <div
               key={expense.id}
-              className="flex flex-row justify-between w-full gap-5"
+              className="flex md:flex-row flex-col justify-between w-full gap-5"
             >
-              <p className="w-60 h-12 rounded-xl border border-[#dce5ec] bg-[#fbfcfd] text-sm flex justify-center items-center mx-auto">
+              <p className="w-full md:w-60 h-12 rounded-xl border border-[#dce5ec] bg-[#fbfcfd] text-sm flex justify-center items-center mx-auto">
                 {expense.category}
               </p>
-              <p className="w-92 h-12 rounded-xl border border-[#dce5ec] bg-[#fbfcfd]  text-sm flex justify-center items-center mx-auto">
+              <p className="w-full md:w-92 h-12 rounded-xl border border-[#dce5ec] bg-[#fbfcfd]  text-sm flex justify-center items-center mx-auto">
                 {expense.amount}
               </p>
-              <p className="w-92 h-12 rounded-xl border border-[#dce5ec] bg-[#fbfcfd]  text-sm flex justify-center items-center mx-auto">
+              <p className= " w-full md:w-92 h-12 rounded-xl border border-[#dce5ec] bg-[#fbfcfd]  text-sm flex justify-center items-center mx-auto">
                 {expense.reason}
               </p>
-              <p className="w-92 h-12 rounded-xl border border-[#dce5ec] bg-[#fbfcfd]  text-sm flex justify-center items-center mx-auto">
+              <p className="w-full md:w-92 h-12 rounded-xl border border-[#dce5ec] bg-[#fbfcfd]  text-sm flex justify-center items-center mx-auto">
                 {expense.companion}
               </p>
               <button
                 onClick={() => deleteItem(trip.id, expense.id, expense.amount)}
-                className="w-50 h-12  p-2 rounded-xl bg-[#093775] text-white font-medium hover:bg-[#001f49] transition ml-10 cursor-pointer"
+                className="md:w-50 h-12  p-2 rounded-xl bg-[#093775] text-white font-medium hover:bg-[#001f49] transition md:ml-10 cursor-pointer"
               >
                 delete
               </button>
               <button
-                className="w-50 h-12  p-2 rounded-xl bg-[#093775] text-white font-medium hover:bg-[#001f49] transition cursor-pointer"
+                className="md:w-50 h-12  p-2 rounded-xl bg-[#093775] text-white font-medium hover:bg-[#001f49] transition cursor-pointer"
                 onClick={() => editeItem(expense)}
               >
                 edit
