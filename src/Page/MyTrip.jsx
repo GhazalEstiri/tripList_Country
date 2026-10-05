@@ -12,6 +12,7 @@ function MyTrip({ state, dispatch }) {
   const [companion, setCompanion] = useState([""]);
   const [budget, setBudget] = useState("");
   const [editeCard, setEditeCard] = useState(null);
+  const [showUndo, setShowUndo] = useState(false);
   // const navigate = useNavigate();
   // const { id } = useParams();
 
@@ -60,6 +61,11 @@ function MyTrip({ state, dispatch }) {
       type: "DELETE_CARD",
       payload: tripId,
     });
+    setShowUndo(true);
+
+    setTimeout(() => {
+      setShowUndo(false);
+    }, 2000);
   }
   function editeCards(tripId) {
     const trip = state.trip.find((item) => item.id === tripId);
@@ -73,9 +79,11 @@ function MyTrip({ state, dispatch }) {
 
   function undoTrip() {
     dispatch({
-      type:"UNDO_CARD"
-    })
+      type: "UNDO_CARD",
+    });
+    setShowUndo(false);
   }
+
   console.log(state);
   return (
     <section className="w-full flex flex-col">
@@ -95,11 +103,14 @@ function MyTrip({ state, dispatch }) {
         </div>
 
         <div>
-           {state.deletedCard && (
-          <button onClick={undoTrip} className="w-20 btn bg-[#144970] text-white text-lg rounded-xl p-5">
-            Undo
-          </button>
-        )}
+          {showUndo && (
+            <button
+              onClick={undoTrip}
+              className="w-20 btn bg-[#144970] text-white text-lg rounded-xl p-5"
+            >
+              Undo
+            </button>
+          )}
           <button
             className="btn bg-[#144970] text-white text-lg rounded-xl p-5"
             onClick={() => document.getElementById("my_modal_1").showModal()}
@@ -222,7 +233,6 @@ function MyTrip({ state, dispatch }) {
                     setEditeCard(null);
                   }}
                 >
-                  {/* if there is a button in form, it will close the modal */}
                   <button className="btn btn-primary bg-[#144970] btn-block shadow-[#144970] shadow-sm w-30 mx-auto ">
                     Add Trip
                   </button>
@@ -253,13 +263,13 @@ function MyTrip({ state, dispatch }) {
                               className=" bg-white text-[#144970] btn-block shadow-[#144970] shadow-sm w-10 h-10 rounded-full  mx-auto cursor-pointer"
                               onClick={() => deleteCard(trip.id)}
                             >
-                              <Trash className="mx-auto"/>
+                              <Trash className="mx-auto" />
                             </button>
                             <button
                               className=" bg-white text-[#144970] btn-block shadow-[#144970] shadow-sm w-10 h-10 rounded-full mx-auto cursor-pointer"
                               onClick={() => editeCards(trip.id)}
                             >
-                              <Pencil className="mx-auto"/>
+                              <Pencil className="mx-auto" />
                             </button>
                           </div>
                           {/* <span className="text-xl">{trip.budget}</span> */}

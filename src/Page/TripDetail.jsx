@@ -10,6 +10,8 @@ function TripDetail({ state, dispatch }) {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [editingExpense, setEditingExpense] = useState(null);
   const [filteredCategory, setFilteredCategory] = useState("");
+  const [showUndo, setShowUndo] = useState(false);
+
   const trip = state.trip.find((item) => item.id === Number(id));
   if (!trip) {
     return <p>Trip not found</p>;
@@ -57,6 +59,10 @@ function TripDetail({ state, dispatch }) {
         budget: trip.budget,
       },
     });
+    setShowUndo(true);
+    setTimeout(() => {
+      setShowUndo(false);
+    }, 2000);
   }
   function editeItem(expense) {
     setEditingExpense(expense);
@@ -65,10 +71,12 @@ function TripDetail({ state, dispatch }) {
     setReason(expense.reason);
     setSelectedCategory(expense.category);
   }
+
   function undoItem() {
     dispatch({
       type: "UNDO_ITEM",
     });
+    setShowUndo(false)
   }
 
   const filteredExpenses = trip.expenses.filter(
@@ -137,8 +145,11 @@ function TripDetail({ state, dispatch }) {
             </div>
           </div>
         </div>
-        {state.deletedExpense && (
-          <button onClick={undoItem} className="w-20 mt-5 ml-20 h-12  p-2 rounded-xl bg-[#093775] text-white font-medium hover:bg-[#001f49] transition">
+        {showUndo && (
+          <button
+            onClick={undoItem}
+            className="w-20 mt-5 ml-20 h-12  p-2 rounded-xl bg-[#093775] text-white font-medium hover:bg-[#001f49] transition"
+          >
             Undo
           </button>
         )}
@@ -200,7 +211,7 @@ function TripDetail({ state, dispatch }) {
               <p className="w-full md:w-92 h-12 rounded-xl border border-[#dce5ec] bg-[#fbfcfd]  text-sm flex justify-center items-center mx-auto">
                 {expense.amount}
               </p>
-              <p className= " w-full md:w-92 h-12 rounded-xl border border-[#dce5ec] bg-[#fbfcfd]  text-sm flex justify-center items-center mx-auto">
+              <p className=" w-full md:w-92 h-12 rounded-xl border border-[#dce5ec] bg-[#fbfcfd]  text-sm flex justify-center items-center mx-auto">
                 {expense.reason}
               </p>
               <p className="w-full md:w-92 h-12 rounded-xl border border-[#dce5ec] bg-[#fbfcfd]  text-sm flex justify-center items-center mx-auto">
