@@ -5,8 +5,8 @@ import { ChevronRight } from "lucide-react";
 import Navbar from "./Navbar";
 function FavePage(country) {
   const { favorite, addFavorite } = useContext(FavoriteContext);
-  console.log("first item:", favorite[0]);
-  console.log("country name:", favorite[0].name);
+  // console.log("first item:", favorite[0]);
+  // console.log("country name:", favorite[0].name);
   return (
     <section>
       <Navbar />
